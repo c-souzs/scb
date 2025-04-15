@@ -1,14 +1,11 @@
 package com.souzs.scb.domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,4 +28,12 @@ public class Book {
 
     @Column(nullable = false)
     private String imageUrl;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
+    private List<BookAuthorship> authors = new ArrayList<>();
+
+    public void addAuthor(BookAuthorship item) {
+        authors.add(item);
+    }
 }

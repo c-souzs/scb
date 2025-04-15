@@ -1,11 +1,11 @@
 package com.souzs.scb.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,4 +28,12 @@ public class Author {
 
     @Column(nullable = false)
     private LocalDate dateDeath;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
+    private List<BookAuthorship> books = new ArrayList<>();
+
+    public void addBook(BookAuthorship item) {
+        books.add(item);
+    }
 }
