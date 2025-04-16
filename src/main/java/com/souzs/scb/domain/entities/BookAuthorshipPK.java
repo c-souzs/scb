@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class BookAuthorshipPK {
     private Long book;
     private Long author;
-    private Long role;
 }

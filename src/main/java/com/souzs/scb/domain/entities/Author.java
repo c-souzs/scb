@@ -30,7 +30,6 @@ public class Author {
     private LocalDate dateDeath;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
     private List<BookAuthorship> books = new ArrayList<>();
 
     public void addBook(BookAuthorship item) {

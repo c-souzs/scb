@@ -23,6 +23,6 @@ public class BookAuthorship {
     private Author author;
 
     @ManyToOne
-    @MapsId("role")
+    @JoinColumn(name = "authorship_role_id", nullable = false)
     private AuthorshipRole role;
 }

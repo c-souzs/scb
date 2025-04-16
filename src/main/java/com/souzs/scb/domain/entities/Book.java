@@ -5,7 +5,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -30,10 +32,20 @@ public class Book {
     private String imageUrl;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
     private List<BookAuthorship> authors = new ArrayList<>();
 
-    public void addAuthor(BookAuthorship item) {
-        authors.add(item);
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "tb_book_literature_category",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "literature_category_id")
+    )
+    private Set<LiteratureCategory> literatureCategories = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
+
+    @OneToMany(mappedBy = "book")
+    private List<BookExemplary> copies = new ArrayList<>();
 }
