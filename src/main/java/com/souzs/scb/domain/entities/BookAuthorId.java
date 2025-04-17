@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookAuthorshipPK {
+public class BookAuthorId {
     private Long book;
     private Long author;
 }

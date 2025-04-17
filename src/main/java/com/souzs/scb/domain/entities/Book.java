@@ -25,27 +25,27 @@ public class Book {
     @Column(nullable = false)
     private LocalDate yearPublished;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String summary;
 
     @Column(nullable = false)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private List<BookAuthorship> authors = new ArrayList<>();
+    @OneToMany(mappedBy = "book")
+    private List<BookAuthor> authors = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
-            name = "tb_book_literature_category",
+            name = "tb_category_book",
             joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "literature_category_id")
+            inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<LiteratureCategory> literatureCategories = new HashSet<>();
+    private Set<BookCategory> categories = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
     @OneToMany(mappedBy = "book")
-    private List<BookExemplary> copies = new ArrayList<>();
+    private List<BookCopy> copies = new ArrayList<>();
 }

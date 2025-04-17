@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_book_authorship")
-public class BookAuthorship {
+@Table(name = "tb_book_author")
+public class BookAuthor {
     @EmbeddedId
-    private BookAuthorshipPK id;
+    private BookAuthorId id;
 
     @ManyToOne
     @MapsId("book")
@@ -23,6 +23,6 @@ public class BookAuthorship {
     private Author author;
 
     @ManyToOne
-    @JoinColumn(name = "authorship_role_id", nullable = false)
-    private AuthorshipRole role;
+    @JoinColumn(name = "author_role_id", nullable = false)
+    private AuthorRole role;
 }

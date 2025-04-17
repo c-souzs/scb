@@ -29,10 +29,6 @@ public class Author {
     @Column(nullable = false)
     private LocalDate dateDeath;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private List<BookAuthorship> books = new ArrayList<>();
-
-    public void addBook(BookAuthorship item) {
-        books.add(item);
-    }
+    @OneToMany(mappedBy = "author")
+    private List<BookAuthor> books = new ArrayList<>();
 }

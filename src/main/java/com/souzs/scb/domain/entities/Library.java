@@ -21,11 +21,12 @@ public class Library {
     @Column(nullable = false)
     private String name;
 
+    @Column(length = 10)
     private String acronym;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     @OneToMany(mappedBy = "library")
-    private List<BookExemplary> copies = new ArrayList<>();
+    private List<BookCopy> copies = new ArrayList<>();
 }

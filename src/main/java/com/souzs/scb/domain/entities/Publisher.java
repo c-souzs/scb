@@ -21,6 +21,7 @@ public class Publisher {
     @Column(nullable = false)
     private String name;
 
+    @Column(length = 10)
     private String acronym;
 
     @OneToOne(cascade = CascadeType.ALL)
