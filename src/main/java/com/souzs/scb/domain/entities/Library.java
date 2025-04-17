@@ -29,4 +29,7 @@ public class Library {
 
     @OneToMany(mappedBy = "library")
     private List<BookCopy> copies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL)
+    private List<OpeningHoursLibrary> openingHours;
 }
