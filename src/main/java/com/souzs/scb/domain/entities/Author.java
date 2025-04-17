@@ -26,7 +26,6 @@ public class Author {
     @Column(nullable = false)
     private LocalDate dateBirth;
 
-    @Column(nullable = false)
     private LocalDate dateDeath;
 
     @OneToMany(mappedBy = "author")

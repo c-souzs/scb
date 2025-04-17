@@ -12,13 +12,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_book_exemplary")
+@Table(name = "tb_book_copy")
 public class BookCopy {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_isbn")
     private Book book;
 
     @ManyToOne
@@ -26,5 +27,5 @@ public class BookCopy {
     private Library library;
 
     @OneToMany(mappedBy = "bookCopy")
-    private List<LoanItem> loanItems = new ArrayList<>();
+    private List<Loan> loans = new ArrayList<>();
 }

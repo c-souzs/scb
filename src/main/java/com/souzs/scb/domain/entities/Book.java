@@ -23,7 +23,7 @@ public class Book {
     private String title;
 
     @Column(nullable = false)
-    private LocalDate yearPublished;
+    private int yearPublished;
 
     @Column(nullable = false, length = 500)
     private String summary;
@@ -37,7 +37,7 @@ public class Book {
     @ManyToMany
     @JoinTable(
             name = "tb_category_book",
-            joinColumns = @JoinColumn(name = "book_id"),
+            joinColumns = @JoinColumn(name = "book_isbn"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<BookCategory> categories = new HashSet<>();
@@ -46,6 +46,6 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<BookCopy> copies = new ArrayList<>();
 }

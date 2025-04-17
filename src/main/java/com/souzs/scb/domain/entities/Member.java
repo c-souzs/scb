@@ -24,11 +24,12 @@ public class Member {
     @Column(nullable = false)
     private String surname;
 
+    @Column(length = 11)
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     @OneToMany(mappedBy = "member")
-    private List<LoanItem> loanItems = new ArrayList<>();
+    private List<Loan> loans = new ArrayList<>();
 }
