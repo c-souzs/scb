@@ -134,8 +134,8 @@ public class AuthService {
 
         Member member = new Member();
         member.setName(memberUserDTO.getName());
-        member.setSurname(member.getSurname());
-        member.setPhoneNumber(member.getPhoneNumber());
+        member.setSurname(memberUserDTO.getSurname());
+        member.setPhoneNumber(memberUserDTO.getPhoneNumber());
 
         Address address = new Address();
         address.setCity(memberUserDTO.getAddress().getCity());
