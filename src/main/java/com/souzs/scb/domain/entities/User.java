@@ -16,9 +16,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String username;
-
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -37,6 +34,15 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
     private Library library;
+
+    public String getUsernameByProfile() {
+        // Caso seja ADM
+        if(member == null && library == null) return getEmail();
+
+        if(member == null) return library.getName();
+
+        return member.getName();
+    }
 
     public void setMember(Member member) {
         if(library != null) throw new RuntimeException("Usuário já é uma biblioteca.");
