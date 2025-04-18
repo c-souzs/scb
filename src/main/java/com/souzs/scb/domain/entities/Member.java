@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "tb_member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -26,6 +25,11 @@ public class Member {
 
     @Column(length = 11)
     private String phoneNumber;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;

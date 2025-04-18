@@ -34,6 +34,6 @@ public class Loan {
     private Member member;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "loan_status")
+    @JoinColumn(name = "loan_status_id")
     private LoanStatus loanStatus;
 }

@@ -24,6 +24,11 @@ public class Library {
     @Column(length = 10)
     private String acronym;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private User user;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
