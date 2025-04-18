@@ -53,14 +53,4 @@ public class AuthController {
                 .header(HttpHeaders.SET_COOKIE, cookies.getRefreshToken().toString())
                 .build();
     }
-
-    @PostMapping("signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody MemberUserDTO memberDTO) {
-        UserDTO userCreatedDTO = authService.signup(memberDTO);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(userCreatedDTO.getId()).toUri();
-
-        return ResponseEntity.created(uri).build();
-    }
 }
