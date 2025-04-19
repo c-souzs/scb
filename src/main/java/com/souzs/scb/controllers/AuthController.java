@@ -1,8 +1,6 @@
 package com.souzs.scb.controllers;
 
-import com.souzs.scb.domain.dtos.MemberUserDTO;
-import com.souzs.scb.domain.dtos.UserAuthDTO;
-import com.souzs.scb.domain.dtos.UserDTO;
+import com.souzs.scb.domain.dtos.UserLoginDTO;
 import com.souzs.scb.domain.payloads.TokenCookies;
 import com.souzs.scb.services.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,9 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,8 +20,8 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("signin")
-    public ResponseEntity<?> signin(@Valid @RequestBody UserAuthDTO userDTO) {
-        TokenCookies cookies = authService.signin(userDTO);
+    public ResponseEntity<?> signin(@Valid @RequestBody UserLoginDTO dto) {
+        TokenCookies cookies = authService.signin(dto);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookies.getAccessToken().toString())

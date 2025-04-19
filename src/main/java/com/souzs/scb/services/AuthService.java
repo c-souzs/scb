@@ -2,14 +2,11 @@ package com.souzs.scb.services;
 
 import com.souzs.scb.config.security.UserDetailsImpl;
 import com.souzs.scb.config.security.jwt.JwtUtils;
-import com.souzs.scb.domain.dtos.MemberUserDTO;
-import com.souzs.scb.domain.dtos.UserAuthDTO;
-import com.souzs.scb.domain.dtos.UserBasicDTO;
-import com.souzs.scb.domain.dtos.UserDTO;
-import com.souzs.scb.domain.entities.Address;
-import com.souzs.scb.domain.entities.Member;
+import com.souzs.scb.domain.dtos.*;
 import com.souzs.scb.domain.entities.RefreshToken;
+import com.souzs.scb.domain.entities.Role;
 import com.souzs.scb.domain.entities.User;
+import com.souzs.scb.domain.enums.EUserRole;
 import com.souzs.scb.domain.payloads.TokenCookies;
 import com.souzs.scb.repositories.AddressRepository;
 import com.souzs.scb.repositories.MemberRepository;
@@ -55,21 +52,19 @@ public class AuthService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public UserDTO currentUser() {
+    public User currentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-
-        return new UserDTO(user);
+        return ((UserDetailsImpl) authentication.getPrincipal()).getUser();
     }
 
     @Transactional
-    public TokenCookies signin(UserAuthDTO userDTO) {
+    public TokenCookies signin(UserLoginDTO dto) {
         Authentication authentication = null;
 
         try {
             authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword())
+                    new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
             );
         } catch (BadCredentialsException e) {
             throw new UsernameNotFoundException("Usuário ou senha inválidos.");
@@ -126,32 +121,29 @@ public class AuthService {
         return new TokenCookies(accessClear, refreshClear);
     }
 
-    @Transactional
-    public UserDTO signup(MemberUserDTO memberUserDTO) {
+    public User instanceUser(LibraryUserDTO dto) {
         User user = new User();
-        user.setEmail(memberUserDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(memberUserDTO.getPassword()));
+        user.setEmail(dto.getUser().getEmail());
+        user.setPassword(passwordEncoder.encode(dto.getUser().getPassword()));
 
-        Member member = new Member();
-        member.setName(memberUserDTO.getName());
-        member.setSurname(memberUserDTO.getSurname());
-        member.setPhoneNumber(memberUserDTO.getPhoneNumber());
+        Role role = new Role();
+        role.setId(EUserRole.LIBRARY.getId());
 
-        Address address = new Address();
-        address.setCity(memberUserDTO.getAddress().getCity());
-        address.setState(memberUserDTO.getAddress().getState());
-        address.setCep(memberUserDTO.getAddress().getCep());
-        address.setRoad(memberUserDTO.getAddress().getRoad());
-        address.setNumber(Integer.parseInt(memberUserDTO.getAddress().getNumber()));
+        user.setRole(role);
 
-        member.setAddress(address);
-        member.setUser(user);
-        user.setMember(member);
+        return user;
+    }
 
-        addressRepository.save(address);
-        memberRepository.save(member);
-        userRepository.save(user);
+    public User instanceUser(MemberUserDTO dto) {
+        User user = new User();
+        user.setEmail(dto.getUser().getEmail());
+        user.setPassword(passwordEncoder.encode(dto.getUser().getPassword()));
 
-        return new UserDTO(user);
+        Role role = new Role();
+        role.setId(EUserRole.MEMBER.getId());
+
+        user.setRole(role);
+
+        return user;
     }
 }

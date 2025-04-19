@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressDTO {
+    private Long id;
+
     @NotBlank(message = "Cidade é obrigatória")
     @Size(max = 100, message = "Cidade deve ter no máximo 100 caracteres")
     private String city;
@@ -30,11 +32,12 @@ public class AddressDTO {
     @NotBlank(message = "CEP é obrigatório")
     private String cep;
 
-    public AddressDTO(Address address) {
-        this.city = address.getCity();
-        this.state = address.getState();
-        this.road = address.getRoad();
-        this.number = String.valueOf(address.getNumber());
-        this.cep = address.getCep();
+    public AddressDTO(Address entity) {
+        id = entity.getId();
+        city = entity.getCity();
+        state = entity.getState();
+        road = entity.getRoad();
+        number = String.valueOf(entity.getNumber());
+        cep = entity.getCep();
     }
 }

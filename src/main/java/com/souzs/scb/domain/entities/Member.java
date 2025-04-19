@@ -31,7 +31,7 @@ public class Member {
     @JoinColumn(name = "id")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Address address;
 
     @OneToMany(mappedBy = "member")

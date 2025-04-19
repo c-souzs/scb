@@ -2,6 +2,7 @@ package com.souzs.scb.config;
 
 import com.souzs.scb.config.security.UserDetailsServiceImpl;
 import com.souzs.scb.config.security.jwt.AuthTokenFilter;
+import com.souzs.scb.domain.enums.EUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/signin").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/refreshToken").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/library").hasAnyRole(EUserRole.ADMIN.name())
                         .anyRequest().authenticated()
                 );
         return http.build();

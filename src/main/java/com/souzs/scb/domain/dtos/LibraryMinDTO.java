@@ -1,6 +1,6 @@
 package com.souzs.scb.domain.dtos;
 
-import com.souzs.scb.domain.entities.Role;
+import com.souzs.scb.domain.entities.Library;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDTO {
+public class LibraryMinDTO {
     private Long id;
     private String name;
+    private String acronym;
 
-    public RoleDTO(Role entity) {
+    public LibraryMinDTO(Library entity) {
         id = entity.getId();
         name = entity.getName();
+        acronym = entity.getAcronym();
     }
 }

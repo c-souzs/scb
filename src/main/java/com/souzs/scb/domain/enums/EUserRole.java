@@ -1,9 +1,9 @@
 package com.souzs.scb.domain.enums;
 
 public enum EUserRole {
-    ROLE_ADMIN(1L),
-    ROLE_LIBRARY(2L),
-    ROLE_MEMBER(3L);
+    ADMIN(1L),
+    LIBRARY(2L),
+    MEMBER(3L);
 
     private long id;
 

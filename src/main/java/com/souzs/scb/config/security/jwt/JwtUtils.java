@@ -47,7 +47,7 @@ public class JwtUtils {
         claims.put("roles", roles);
         claims.put("id", user.getUser().getId());
 
-        return generateToken(user.getUser().getUsernameByProfile(), claims, accessExp);
+        return generateToken(user.getUser().getEmail(), claims, accessExp);
     }
 
     public String generateAccessJwt(User user) {
@@ -56,11 +56,11 @@ public class JwtUtils {
         claims.put("roles", roles);
         claims.put("id", user.getId());
 
-        return generateToken(user.getUsernameByProfile(), claims, accessExp);
+        return generateToken(user.getEmail(), claims, accessExp);
     }
 
     public String generateRefreshJwt(User user) {
-        return generateToken(user.getUsernameByProfile(), null, refreshExp);
+        return generateToken(user.getEmail(), null, refreshExp);
     }
 
     public String getEmailFromJwtToken(String token) {
